@@ -1,3 +1,4 @@
+```bash
 biorxiv-search-v2/
 ├── .gitignore
 ├── README.md
@@ -48,3 +49,4 @@ biorxiv-search-v2/
 │
 └── documentacion/
     └── documentacion.md
+```
