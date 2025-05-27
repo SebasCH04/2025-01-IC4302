@@ -1,0 +1,23 @@
+rabbitmq:
+  enabled: true
+  auth:
+    username: guest
+    password: guest
+  persistence:
+    enabled: false #desactiva persistencia si solo es para desarrollo
+
+mongodb:
+  enabled: true
+  auth:
+    rootUsername: root
+    rootPassword: rootPass123
+    username: appUser
+    password: appPass123
+    database: admin
+  primary:
+    persistence:
+      enabled: false #idem, para desarrollo
+
+secrets:
+  mongoUri: "mongodb://root:rootPass123@biorxiv-search-v2-mongodb.default.svc.cluster.local:27017/admin"
+  rabbitUri: "amqp://guest:guest@biorxiv-search-v2-rabbitmq.default.svc.cluster.local:5672/"
