@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: raw-shared-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany      # importante: ambos Pods (Crawler y Spacy) pueden leer/escribir
+  resources:
+    requests:
+      storage: 1Gi       # ajusta según lo que necesites

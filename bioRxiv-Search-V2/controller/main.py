@@ -18,7 +18,7 @@ conn       = pika.BlockingConnection(params)
 channel    = conn.channel()
 channel.queue_declare(queue="job-splits", durable=True)
 
-print("✅ Controller iniciado. Esperando jobs...")
+print("Controller iniciado. Esperando jobs...")
 
 while True:
     # Toma un job no procesado
@@ -39,5 +39,5 @@ while True:
         # Marca como hecho
         jobs_col.update_one({"_id": job["_id"]}, {"$set": {"status": "done"}})
     else:
-        print("⏱️ No hay jobs nuevos. Durmiendo 5s…")
+        print("No hay jobs nuevos. Durmiendo 5s…")
         time.sleep(5)

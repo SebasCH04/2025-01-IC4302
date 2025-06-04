@@ -19,5 +19,5 @@ mongodb:
       enabled: false #idem, para desarrollo
 
 secrets:
-  mongoUri: "mongodb://root:rootPass123@biorxiv-search-v2-mongodb.default.svc.cluster.local:27017/admin"
+  mongoUri: "mongodb://root:rootPass123@biorxiv-search-v2-mongodb.default.svc.cluster.local:27017/projectDB?authSource=admin"
   rabbitUri: "amqp://guest:guest@biorxiv-search-v2-rabbitmq.default.svc.cluster.local:5672/"

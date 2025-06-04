@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spacy-processor
+  labels:
+    app: spacy-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spacy-processor
+  template:
+    metadata:
+      labels:
+        app: spacy-processor
+    spec:
+      containers:
+        - name: spacy-processor
+          image: spacy-processor:latest
+          imagePullPolicy: Never
+          volumeMounts:
+            - name: raw-volume
+              mountPath: /raw
+            - name: augmented-volume
+              mountPath: /augmented
+      volumes:
+        - name: raw-volume
+          persistentVolumeClaim:
+            claimName: raw-shared-pvc
+        - name: augmented-volume
+          emptyDir: {}

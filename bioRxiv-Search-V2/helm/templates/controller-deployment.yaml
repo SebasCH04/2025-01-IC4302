@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: controller
-          image: controller:dev
+          image: controller:latest
           imagePullPolicy: Never
           env:
             - name: MONGO_URI
