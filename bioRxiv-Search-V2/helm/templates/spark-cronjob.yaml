@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: spark-processor-cron
+  labels:
+    app: spark-processor
+spec:
+  schedule: "*/5 * * * *"     # Cada hora en minuto 0. Ajusta según conveniencia.
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: spark-processor
+        spec:
+          restartPolicy: Never
+          containers:
+            - name: spark-processor
+              image: spark-processor:latest      # Debes haber etiquetado tu imagen como "spark-processor:latest"
+              imagePullPolicy: Never             # Asume que la imagen está en tu Docker local
+              volumeMounts:
+                - name: augmented-volume
+                  mountPath: /augmented          # El script lee "/augmented/*.json"
+                - name: ivy-cache
+                  mountPath: /opt/ivy-cache
+          volumes:
+            - name: augmented-volume
+              persistentVolumeClaim:
+                claimName: augmented-shared-pvc
+            - name: ivy-cache
+              emptyDir: {}

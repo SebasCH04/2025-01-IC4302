@@ -28,4 +28,5 @@ spec:
           persistentVolumeClaim:
             claimName: raw-shared-pvc
         - name: augmented-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: augmented-shared-pvc
