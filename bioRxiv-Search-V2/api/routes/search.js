@@ -70,6 +70,11 @@ router.get("/search", validateToken, async (req, res) => {
       },
     };
 
+    console.log(
+      "Pipeline de búsqueda:",
+      JSON.stringify([searchStage, { $skip: skip }, { $limit: limit }], null, 2)
+    );
+
     // Pipeline final: $search → $skip → $limit → $project destacando el highlight
     const cursor = coll.aggregate([
       searchStage,
@@ -90,7 +95,9 @@ router.get("/search", validateToken, async (req, res) => {
       },
     ]);
 
-    const results = await cursor.toArray();
+    const results = await coll.find({ title: /COVID/i }).toArray();
+    console.log(results);
+
     const totalCount = (
       await coll.aggregate([{ $search: { compound: { must: mustClauses } } }, { $count: "count" }]).toArray()
     )[0]?.count;
