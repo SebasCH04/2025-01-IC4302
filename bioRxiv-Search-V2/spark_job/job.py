@@ -1,10 +1,11 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col, explode, to_date
 
+atlas_uri = "mongodb+srv://sebcalvo:9StJIotFXpl0CbNw@cluster0.xosgnib.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+
 spark = SparkSession.builder \
     .appName("BioRxivSparkProcessor") \
-    .config("spark.mongodb.output.uri",
-            "mongodb://root:rootPass123@biorxiv-search-v2-mongodb.default.svc.cluster.local:27017/projectDB.documents?authSource=admin") \
+    .config("spark.mongodb.output.uri", atlas_uri) \
     .getOrCreate()
 
 # 1) Leer todos los JSON enriquecidos que estén en /augmented
