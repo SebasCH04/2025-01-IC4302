@@ -5,10 +5,7 @@ if (!uri) {
   throw new Error("Debes definir MONGODB_URI en tus variables de entorno.");
 }
 
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const client = new MongoClient(uri); // Opciones obsoletas eliminadas
 
 async function connectMongo() {
   if (!client.isConnected()) {
