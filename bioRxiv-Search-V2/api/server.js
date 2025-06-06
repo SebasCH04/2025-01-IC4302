@@ -24,3 +24,7 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`REST API corriendo en puerto ${PORT}`);
 });
+
+app.get("/", (req, res) => {
+  res.json({ message: "API viva" });
+});
