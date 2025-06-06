@@ -26,4 +26,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: "Error interno del servidor" });
 });
 
-module.exports = app;
+// Exportar un handler para serverless que invoque a la app Express
+module.exports = (req, res) => {
+  return app(req, res);
+};
