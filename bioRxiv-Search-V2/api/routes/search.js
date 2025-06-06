@@ -1,5 +1,5 @@
 const express = require("express");
-const { connectMongo } = require("../lib/mongoClient");
+const { connectMongo } = require("../libs/mongoClient");
 const router = express.Router();
 const validateToken = require("../middleware/validateToken");
 

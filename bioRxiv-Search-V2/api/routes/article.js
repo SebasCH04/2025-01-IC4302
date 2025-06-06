@@ -1,6 +1,6 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
-const { connectMongo } = require("../lib/mongoClient");
+const { connectMongo } = require("../libs/mongoClient");
 const validateToken = require("../middleware/validateToken");
 
 const router = express.Router();
