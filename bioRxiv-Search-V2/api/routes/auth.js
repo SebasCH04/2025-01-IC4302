@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { db } = require("../libs/firebaseAdmin");
+const { admin, db } = require("../libs/firebaseAdmin");
 
 const router = express.Router();
 const USERS_COLLECTION = "users";
