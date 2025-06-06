@@ -20,6 +20,34 @@ app.use("/api", authRoutes);
 app.use("/api", searchRoutes);
 app.use("/api", articleRoutes);
 
+// Ejemplo de ruta de búsqueda usando regex
+app.get('/api/search', async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query) {
+      return res.status(400).json({ message: "Parámetro query es obligatorio" });
+    }
+    // Busca en title y abstract de forma case-insensitive
+    const regex = new RegExp(query, "i");
+    const results = await db.collection("documents").find({
+      $or: [
+        { title: { $regex: regex } },
+        { abstract: { $regex: regex } }
+      ]
+    }).toArray();
+
+    res.json({
+      page: 1,
+      pageSize: 10,
+      totalCount: results.length,
+      results
+    });
+  } catch (err) {
+    console.error("Error en /api/search:", err);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+});
+
 // Manejador genérico de errores
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err);
