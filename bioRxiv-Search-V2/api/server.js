@@ -8,7 +8,7 @@ app.use(express.json());
 
 // ** HEALTH CHECK / ROOT **
 app.get("/", (req, res) => {
-  res.json({ message: "API viva ‒ listo para recibir peticiones" });
+  res.json({ message: "API viva - listo para recibir peticiones" });
 });
 
 // Rutas definidas para /api/...
