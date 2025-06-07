@@ -5,6 +5,11 @@ body {
   background: #f5f5f5;
 }
 
+.App {
+  text-align: center;
+  padding: 2rem;
+}
+
 header {
   background: #4a90e2;
   color: white;

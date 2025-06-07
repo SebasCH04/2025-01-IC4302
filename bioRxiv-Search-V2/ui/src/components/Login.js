@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "../utils/api";
+import { UserContext } from "../UserContext";
 
-function Login({ setUser }) {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica de autenticación (por ejemplo, llamar a la API)
-    // Por ahora simulamos login exitoso:
-    setUser({ email });
+    try {
+      const data = await login(email, password);
+      // Guarda el token y actualiza el estado del usuario globalmente
+      localStorage.setItem("token", data.token);
+      setUser(data.user); // Actualiza el estado global del usuario
+      navigate("/search"); // Redirige a la página de búsqueda
+    } catch (error) {
+      console.error("Error en el login:", error);
+      setErrorMsg("Credenciales inválidas o error en el login.");
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h2>Iniciar sesión</h2>
+      {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
       <input
         type="email"
         placeholder="Correo"

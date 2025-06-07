@@ -1,25 +1,20 @@
 import React, { useState } from "react";
-import Header from "./components/Header";
+import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
-import SearchBar from "./components/SearchBar";
-import ResultsList from "./components/ResultsList";
+import SearchPage from "./components/SearchPage";
+import Header from "./components/Header";
 import "./styles/App.css";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [results, setResults] = useState([]);
-  
+
   return (
     <div className="App">
       <Header />
-      { !user ? (
-        <Login setUser={setUser} />
-      ) : (
-        <>
-          <SearchBar setResults={setResults} />
-          <ResultsList results={results} />
-        </>
-      )}
+      <Routes>
+        <Route path="/" element={<Login setUser={setUser} />} />
+        <Route path="/search" element={<SearchPage user={user} />} />
+      </Routes>
     </div>
   );
 }
