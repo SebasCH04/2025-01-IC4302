@@ -8,6 +8,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [displayName, setDisplayName] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [registered, setRegistered] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
@@ -16,15 +17,22 @@ function Register() {
     try {
       const data = await register(email, password, displayName);
       console.log("Respuesta del registro:", data);
-      localStorage.setItem("token", data.token);
-      const userObj = data.user || { uid: data.uid, email, displayName };
-      setUser(userObj);
-      navigate("/search");
+      setRegistered(true);
     } catch (error) {
       console.error("Error en el registro:", error);
       setErrorMsg("Error al registrar el usuario.");
     }
   };
+
+  if (registered) {
+    return (
+      <div>
+        <h2>Usuario registrado</h2>
+        <p>Por favor, inicie sesión.</p>
+        <button onClick={() => navigate("/")}>Ir a Login</button>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit}>

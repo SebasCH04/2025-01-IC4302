@@ -43,7 +43,7 @@ function Login() {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <button type="submit">Entrar</button>
+      <button type="submit">Login</button>
       <p>
         ¿No tienes cuenta?{" "}
         <button type="button" onClick={() => navigate("/register")}>

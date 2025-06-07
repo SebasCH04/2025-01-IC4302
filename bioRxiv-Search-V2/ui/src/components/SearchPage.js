@@ -13,7 +13,7 @@ function SearchPage() {
 
   return (
     <div>
-      <h2>Bienvenido {user.displayName || user.email}</h2>
+      <h2>Bienvenido, {user.displayName || user.email}.</h2>
       <SearchBar setResults={setResults} />
       <ResultsList results={results} />  {/* Siempre le pasamos un arreglo */}
     </div>
