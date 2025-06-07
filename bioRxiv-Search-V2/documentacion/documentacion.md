@@ -174,7 +174,7 @@ cd bioRxiv-Search-V2
 3. Crea una base de datos llamada biorxiv y una colección llamada documents.
 4. Configura los índices necesarios para las búsquedas (por ejemplo, índices en los campos title, abstract, y entities.text).
 
-![Mongo Atlas](documentacion/MongoAtlas.png)
+![Mongo Atlas](MongoAtlas.png)
 
 ### 3. Configuración de Firebase
 
@@ -182,7 +182,7 @@ cd bioRxiv-Search-V2
 2. Habilita Firestore Database.
 3. Descarga el archivo de configuración firebase-adminsdk.json y colócalo en api/libs/firebaseAdmin.js.
 
-![Cloud Firestore](documentacion/CloudFirestore.png)
+![Cloud Firestore](CloudFirestore.png)
 
 ### 4. Construcción de imágenes Docker
 
@@ -210,7 +210,7 @@ helm upgrade --install biorxiv-search-v2 . --namespace default
 
 Este comando instalará todos los recursos definidos en los Helm charts, incluyendo MongoDB, RabbitMQ, y los microservicios del proyecto.
 
-![RabbitMQ](documentacion/RabbitMQ.png)
+![RabbitMQ](RabbitMQ.png)
 
 ### 6. Configuración de la UI
 
@@ -234,7 +234,7 @@ npm start
 
 Para desplegar la UI en producción, utiliza Vercel o cualquier servicio de hosting compatible.
 
-![Vercel](documentacion/Vercel.png)
+![Vercel](Vercel.png)
 
 ---
 
@@ -299,7 +299,7 @@ kubectl logs controller-8ddbd5c7-9krlg -n default --follow
 
 En los logs se puede ver lo siguiente:
 
-![Prueba Controller](documentacion/PruebaController.png)
+![Prueba Controller](PruebaController.png)
 
 - **Prueba de Crawler:**
 ```bash
@@ -308,7 +308,7 @@ kubectl logs crawler-6c679877b-2dzz5 -n default --follow
 
 En los logs se puede ver lo siguiente:
 
-![Prueba Crawler](documentacion/PruebaCrawler.png)
+![Prueba Crawler](PruebaCrawler.png)
 
 - **Prueba de Spacy:**
 ```bash
@@ -317,7 +317,7 @@ kubectl logs spacy-processor-5bfc4ccb7c-jjzv4 -n default --follow
 
 En los logs se puede ver lo siguiente:
 
-![Prueba Spacy](documentacion/PruebaSpacy.png)
+![Prueba Spacy](PruebaSpacy.png)
 
 - **Prueba de Spark Job:**
 ```bash
@@ -326,11 +326,11 @@ kubectl logs spark-processor-cron-29154540-dvf9m -n default --follow
 
 En los logs se puede ver lo siguiente, primero como se procesan los datos:
 
-![Prueba Spark](documentacion/PruebaSpark1.png)
+![Prueba Spark](PruebaSpark1.png)
 
 luego como se mueven a otra carpeta para no ingresar repetidos a Mongo Atlas:
 
-![Prueba Spark](documentacion/PruebaSpark2.png)
+![Prueba Spark](PruebaSpark2.png)
 
 ---
 
