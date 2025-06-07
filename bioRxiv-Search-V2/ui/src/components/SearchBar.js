@@ -17,9 +17,10 @@ function SearchBar({ setResults }) {
     <div>
       <input
         type="text"
-        placeholder="Buscar términos..."
+        placeholder="Buscar artículos sobre COVID-19..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        style={{ width: "300px" }} // Ajusta el ancho aquí
       />
       <button onClick={handleSearch}>Buscar</button>
     </div>
