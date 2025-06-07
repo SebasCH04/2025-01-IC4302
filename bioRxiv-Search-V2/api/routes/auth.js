@@ -58,7 +58,7 @@ router.post("/login", async (req, res) => {
       .get();
 
     if (userSnapshot.empty) {
-      return res.status(401).json({ message: "Credenciales invalidas" });
+      return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
     const doc = userSnapshot.docs[0];
@@ -68,17 +68,24 @@ router.post("/login", async (req, res) => {
     // Comparar contraseña
     const match = await bcrypt.compare(password, userData.password);
     if (!match) {
-      return res.status(401).json({ message: "Credenciales invalidas" });
+      return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
-    // Generar JWT (payload: uid + opcionalmente email)
+    // Generar JWT
     const token = jwt.sign(
       { uid, email: userData.email },
       process.env.JWT_SECRET,
       { expiresIn: "8h" }
     );
 
-    return res.json({ token, uid });
+    // Construir el objeto usuario completo
+    const user = {
+      uid,
+      email: userData.email,
+      displayName: userData.displayName || ""
+    };
+
+    return res.json({ token, user });
   } catch (err) {
     console.error("Error en /login:", err);
     return res.status(500).json({ message: "Error interno" });

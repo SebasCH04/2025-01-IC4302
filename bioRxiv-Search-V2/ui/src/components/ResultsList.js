@@ -1,22 +1,18 @@
 import React from "react";
 
-function ResultsList({ results }) {
+function ResultsList({ results = [] }) {
+  if (results.length === 0) {
+    return <p>No se encontraron resultados.</p>;
+  }
   return (
-    <div>
-      <h2>Resultados</h2>
-      {results.length === 0 ? (
-        <p>No se encontraron resultados.</p>
-      ) : (
-        <ul>
-          {results.map((item) => (
-            <li key={item._id}>
-              <h3>{item.title}</h3>
-              <p>{item.abstract}</p>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <ul>
+      {results.map((item, index) => (
+        <li key={index}>
+          <h3>{item.title}</h3>
+          <p>{item.abstract}</p>
+        </li>
+      ))}
+    </ul>
   );
 }
 

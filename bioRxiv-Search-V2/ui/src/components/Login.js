@@ -14,10 +14,13 @@ function Login() {
     e.preventDefault();
     try {
       const data = await login(email, password);
-      // Guarda el token y actualiza el estado del usuario globalmente
+      console.log("Respuesta del login:", data);
+      // Si no existe data.user, construimos manualmente el objeto usuario
+      const userObj = data.user || { uid: data.uid, email, displayName: "" };
+      // Guarda el token y actualiza el estado global del usuario
       localStorage.setItem("token", data.token);
-      setUser(data.user); // Actualiza el estado global del usuario
-      navigate("/search"); // Redirige a la página de búsqueda
+      setUser(userObj);
+      navigate("/search");
     } catch (error) {
       console.error("Error en el login:", error);
       setErrorMsg("Credenciales inválidas o error en el login.");
