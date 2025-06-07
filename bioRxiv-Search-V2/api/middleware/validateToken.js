@@ -8,7 +8,7 @@ function validateToken(req, res, next) {
   const token = authHeader.split(" ")[1];
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = payload; // payload contiene { uid, email, … }
+    req.user = payload; //payload contiene {uid, email, ...}
     next();
   } catch (err) {
     return res.status(401).json({ message: "Token inválido o expirado" });

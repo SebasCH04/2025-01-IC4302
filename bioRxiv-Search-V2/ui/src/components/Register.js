@@ -1,34 +1,50 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../utils/api";
+import { register } from "../utils/api";
 import { UserContext } from "../UserContext";
 
-function Login() {
+function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [registered, setRegistered] = useState(false);
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await login(email, password);
-      console.log("Respuesta del login:", data);
-      const userObj = data.user || { uid: data.uid, email, displayName: "" };
-      localStorage.setItem("token", data.token);
-      setUser(userObj);
-      navigate("/search");
+      const data = await register(email, password, displayName);
+      console.log("Respuesta del registro:", data);
+      setRegistered(true);
     } catch (error) {
-      console.error("Error en el login:", error);
-      setErrorMsg("Credenciales inválidas, inténtelo de nuevo.");
+      console.error("Error en el registro:", error);
+      setErrorMsg("Error al registrar el usuario.");
     }
   };
 
+  if (registered) {
+    return (
+      <div>
+        <h2>Usuario registrado</h2>
+        <p>Por favor, inicie sesión.</p>
+        <button onClick={() => navigate("/")}>Ir a Login</button>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Iniciar sesión</h2>
+      <h2>Registro</h2>
       {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
+      <input
+        type="text"
+        placeholder="Nombre de usuario"
+        value={displayName}
+        onChange={(e) => setDisplayName(e.target.value)}
+        required
+      />
       <input
         type="email"
         placeholder="Correo"
@@ -43,15 +59,9 @@ function Login() {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <button type="submit">Login</button>
-      <p>
-        ¿No tienes cuenta?{" "}
-        <button type="button" onClick={() => navigate("/register")}>
-          Registrarse
-        </button>
-      </p>
+      <button type="submit">Registrarse</button>
     </form>
   );
 }
 
-export default Login;
+export default Register;

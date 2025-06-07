@@ -5,7 +5,7 @@ const validateToken = require("../middleware/validateToken");
 
 const router = express.Router();
 
-// GET /api/article/:id
+//GET /api/article/:id
 router.get("/article/:id", validateToken, async (req, res) => {
   const { id } = req.params;
   try {

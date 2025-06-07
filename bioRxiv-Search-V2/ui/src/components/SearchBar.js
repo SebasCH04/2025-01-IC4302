@@ -6,8 +6,8 @@ function SearchBar({ setResults }) {
 
   const handleSearch = async () => {
     try {
-      const data = await searchDocuments(query); // Llama al backend con el término de búsqueda
-      setResults(data.results); // Actualiza los resultados en el estado del componente padre
+      const data = await searchDocuments(query);
+      setResults(data.results);
     } catch (error) {
       console.error("Error en la búsqueda:", error);
     }
@@ -17,9 +17,10 @@ function SearchBar({ setResults }) {
     <div>
       <input
         type="text"
-        placeholder="Buscar términos..."
+        placeholder="Buscar artículos sobre COVID-19..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        style={{ width: "300px" }} // Ajusta el ancho aquí
       />
       <button onClick={handleSearch}>Buscar</button>
     </div>

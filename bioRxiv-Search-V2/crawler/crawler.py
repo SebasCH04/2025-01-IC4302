@@ -12,18 +12,18 @@ ch           = conn.channel()
 ch.queue_declare(queue="job-splits", durable=True)
 
 API_URL   = "https://api.biorxiv.org/covid19"
-PAGE_SIZE = 30   # El endpoint covid19 devuelve 30 resultados por página
+PAGE_SIZE = 30 #el endpoint covid19 devuelve 30 resultados por pagina
 
 print("Crawler iniciado: escuchando job-splits…")
 
 for method, properties, body in ch.consume("job-splits", inactivity_timeout=5):
     if body is None:
-        # no hay mensajes nuevos
+        #no hay mensajes nuevos
         print("Sin mensajes, vuelvo a esperar…")
         time.sleep(5)
         continue
 
-    # Parseo del mensaje (JSON o literal‐eval)
+    #parseo del mensaje (JSON o literal‐eval)
     raw = body.decode("utf-8")
     try:
         msg = json.loads(raw)
@@ -48,14 +48,14 @@ for method, properties, body in ch.consume("job-splits", inactivity_timeout=5):
             print(f"El endpoint {url} devolvió status {resp.status_code}. Termino bucle de splits.")
             break
 
-        # Intento parsear como JSON
+        #intentar parsear como JSON
         try:
             data = resp.json()
         except ValueError:
             print(f"La respuesta de {url} no es JSON (texto: {resp.text[:100]!r}). Lo salto.")
             continue
 
-        # Si llegaste aquí, 'data' es un dict con el JSON esperado
+        #si se llego aqui, data es un dict con el JSON esperado
         raw_dir = "/raw"
         os.makedirs(raw_dir, exist_ok=True)
         filename = f"{raw_dir}/{job_id}-{split_idx+1}.json"
@@ -63,5 +63,5 @@ for method, properties, body in ch.consume("job-splits", inactivity_timeout=5):
             json.dump(data, f)
         print(f"Guardado {filename}")
 
-    # Confirmo procesamiento del mensaje y continuo escuchando
+    #confirmar procesamiento del mensaje y continuar escuchando
     ch.basic_ack(method.delivery_tag)

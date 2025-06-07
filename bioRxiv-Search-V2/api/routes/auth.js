@@ -6,14 +6,14 @@ const { admin, db } = require("../libs/firebaseAdmin");
 const router = express.Router();
 const USERS_COLLECTION = "users";
 
-// POST /api/register
+//POST /api/register
 router.post("/register", async (req, res) => {
   const { email, password, displayName } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: "Email y contraseña obligatorios" });
   }
   try {
-    // Verificar que no exista un usuario con ese email
+    //verificar que no exista un usuario con ese email
     const userSnapshot = await db
       .collection(USERS_COLLECTION)
       .where("email", "==", email)
@@ -24,11 +24,11 @@ router.post("/register", async (req, res) => {
       return res.status(409).json({ message: "Email ya registrado" });
     }
 
-    // Hashear la contraseña
+    //hashear la contraseña
     const saltRounds = 10;
     const hashed = await bcrypt.hash(password, saltRounds);
 
-    // Crear documento de usuario
+    //crear documento de usuario
     const userRef = await db.collection(USERS_COLLECTION).add({
       email,
       password: hashed,
@@ -43,14 +43,14 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// POST /api/login
+//POST /api/login
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: "Email y contraseña obligatorios" });
   }
   try {
-    // Buscar usuario por email
+    //buscar usuario por email
     const userSnapshot = await db
       .collection(USERS_COLLECTION)
       .where("email", "==", email)
@@ -65,20 +65,20 @@ router.post("/login", async (req, res) => {
     const userData = doc.data();
     const uid = doc.id;
 
-    // Comparar contraseña
+    //comparar contraseña
     const match = await bcrypt.compare(password, userData.password);
     if (!match) {
       return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
-    // Generar JWT
+    //generar JWT
     const token = jwt.sign(
       { uid, email: userData.email },
       process.env.JWT_SECRET,
       { expiresIn: "8h" }
     );
 
-    // Construir el objeto usuario completo
+    //construir el objeto usuario completo
     const user = {
       uid,
       email: userData.email,
@@ -92,11 +92,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// POST /api/logout
-// (Opcional: si quieres invalidar tokens, tendrías que llevar un blacklist en Firestore)
+//POST /api/logout
 router.post("/logout", (req, res) => {
-  // En un sistema JWT simple, no hay “logout” en el servidor;
-  // puedes gestionar revocaciones o expiraciones cortas en tu front.
   return res.status(200).json({ message: "Usuario deslogueado" });
 });
 

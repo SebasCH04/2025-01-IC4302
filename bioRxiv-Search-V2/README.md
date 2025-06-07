@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Documentación del proyecto bioRxiv-Search-V2
 
 ## Bases de Datos II
@@ -53,54 +54,100 @@ Este documento describe la arquitectura, los componentes, la instalación, el de
 
 ## Estructura del Proyecto
 
+=======
+# Proyecto II: bioRxiv-Search para búsquedas de artículos sobre el COVID-19
+
+### Estructura del proyecto:
+>>>>>>> fe635419a97f1f9a45f227c88c580c5967711534
 ```bash
 biorxiv-search-v2/
-├── .gitignore
-├── README.md
-│
-├── helm/
-│   ├── Chart.yaml
-│   ├── values.yaml
-│   └── templates/
-│       ├── controller-deployment.yaml
-│       ├── crawler-deployment.yaml
-│       ├── spacy-deployment.yaml
-│       └── spark-cronjob.yaml
+├── api/
+│   ├── libs/
+│   │   ├── firebaseAdmin.js
+│   │   └── mongoClient.js
+│   ├── middleware/
+│   │   └── validateToken.js
+│   ├── node_modules/
+│   ├── routes/
+│   │   ├── article.js
+│   │   ├── auth.js
+│   │   └── search.js
+│   ├── .env
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js
 │
 ├── controller/
 │   ├── Dockerfile
 │   ├── requirements.txt
-│   └── src/
-│       └── main.py
+│   └── main.py
 │
 ├── crawler/
+│   ├── crawler.py
 │   ├── Dockerfile
-│   ├── requirements.txt
-│   └── src/
-│       └── crawler.py
+│   └── requirements.txt
+│
+├── documentation/
+│   └── documentacion.md
+│
+├── helm/
+│   ├── charts/
+│   │   ├── mongodb-16.5.5.yaml
+│   │   └── rabbitmq-12.10.0.yaml
+│   ├── templates/
+│   │   ├── controller-deployment.yaml
+│   │   ├── crawler-deployment.yaml
+│   │   ├── pvc-augmented.yaml
+│   │   ├── pvc-raw.yaml
+│   │   ├── spacy-deployment.yaml
+│   │   └── spark-cronjob.yaml
+│   ├── values.yaml
+│   └── Chart.yaml
 │
 ├── spacy_processor/
 │   ├── Dockerfile
 │   ├── requirements.txt
-│   └── src/
-│       └── ner_extract.py
+│   └── ner_extract.py
 │
 ├── spark_job/
 │   ├── Dockerfile
-│   └── job.py
+│   ├── job.py
+│   └── requirements.txt
 │
-├── api/
-│   ├── Dockerfile
-│   ├── package.json
-│   └── src/
-│       └── index.ts
-│
+<<<<<<< HEAD
 └── ui/
     ├── package.json
     ├── vite.config.ts
     └── src/
         ├── App.tsx
         └── components/
+=======
+├── ui/
+│   ├── node_modules/
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Header.js
+│   │   │   ├── Login.js
+│   │   │   ├── Register.js
+│   │   │   ├── ResultsList.js
+│   │   │   ├── SearchBar.js
+│   │   │   └── SearchPage.js
+│   │   ├── styles/
+│   │   │   └── App.css
+│   │   ├── utils/
+│   │   │   └── api.js
+│   │   ├── App.js
+│   │   ├── index.js
+│   │   └── UserContext.js
+│   ├── package-lock.json
+│   └── package.json
+│
+├── .gitignore
+├── LICENSE
+└── README.md
+>>>>>>> fe635419a97f1f9a45f227c88c580c5967711534
 ```
 
 ## Despliegue

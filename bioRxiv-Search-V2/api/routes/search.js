@@ -3,7 +3,7 @@ const { connectMongo } = require("../libs/mongoClient");
 const router = express.Router();
 const validateToken = require("../middleware/validateToken");
 
-// GET /api/search?query=texto&category=immunology&type=new+results&page=1&pageSize=10
+//GET /api/search?query=texto&category=immunology&type=new+results&page=1&pageSize=10
 router.get("/search", validateToken, async (req, res) => {
   const {
     query = "",
@@ -24,7 +24,7 @@ router.get("/search", validateToken, async (req, res) => {
     const db = await connectMongo();
     const coll = db.collection("documents");
 
-    // Construimos el pipeline de agregacion con $search
+    //construimos el pipeline de agregacion con $search
     const mustClauses = [];
     if (query) {
       mustClauses.push({
@@ -63,7 +63,7 @@ router.get("/search", validateToken, async (req, res) => {
 
     const searchStage = {
       $search: {
-        index: "bioproject_search", // Asegúrate de que este índice exista
+        index: "bioproject_search",
         compound: {
           must: mustClauses,
         },
@@ -95,7 +95,7 @@ router.get("/search", validateToken, async (req, res) => {
       },
     ]);
 
-    const results = await cursor.toArray(); // Cambiar esta línea
+    const results = await cursor.toArray();
 
     const countCursor = await coll.aggregate([
       { $search: { compound: { must: mustClauses } } },

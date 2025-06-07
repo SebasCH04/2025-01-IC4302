@@ -5,7 +5,7 @@ metadata:
   labels:
     app: spark-processor
 spec:
-  schedule: "*/5 * * * *"     # Cada hora en minuto 0. Ajusta según conveniencia.
+  schedule: "*/5 * * * *" #cada 5 minutos
   jobTemplate:
     spec:
       template:
@@ -16,11 +16,11 @@ spec:
           restartPolicy: Never
           containers:
             - name: spark-processor
-              image: spark-processor:latest      # Debes haber etiquetado tu imagen como "spark-processor:latest"
-              imagePullPolicy: Never             # Asume que la imagen está en tu Docker local
+              image: spark-processor:latest
+              imagePullPolicy: Never
               volumeMounts:
                 - name: augmented-volume
-                  mountPath: /augmented          # El script lee "/augmented/*.json"
+                  mountPath: /augmented
                 - name: ivy-cache
                   mountPath: /opt/ivy-cache
           volumes:

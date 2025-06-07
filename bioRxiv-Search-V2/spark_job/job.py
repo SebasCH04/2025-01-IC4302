@@ -12,23 +12,23 @@ spark = SparkSession.builder \
     .config("spark.mongodb.output.uri", atlas_uri) \
     .getOrCreate()
 
-# Verificar si hay archivos en /augmented
+#verificar si hay archivos en /augmented
 json_files = glob.glob("/augmented/*.json")
 if not json_files:
     print("No hay archivos en /augmented para procesar. Saliendo.")
     spark.stop()
     sys.exit(0)
 
-# 1) Leer todos los JSON enriquecidos que estén en /augmented
+#leer todos los JSON enriquecidos que esten en /augmented
 df_raw = spark.read.json(json_files)
 
-# 2) Explode del array "collection" para que cada artículo sea fila independiente
+#explode del array "collection" para que cada articulo sea fila independiente
 df_articles = df_raw.selectExpr("explode(collection) as article").select("article.*")
 
-# 3) Extraer author_name de rel_authors
+#extraer author_name de rel_authors
 df_with_authors = df_articles.withColumn("authors", col("rel_authors.author_name"))
 
-# 4) Normalizar campos
+#normalizar campos
 df_norm = df_with_authors \
     .withColumnRenamed("rel_doi", "doi") \
     .withColumnRenamed("rel_title", "title") \
@@ -36,7 +36,7 @@ df_norm = df_with_authors \
     .withColumn("date", to_date(col("rel_date"), "yyyy-MM-dd")) \
     .withColumnRenamed("rel_category", "category")
 
-# 5) Seleccionar columnas a guardar en Mongo
+#seleccionar columnas a guardar en Mongo
 df_out = df_norm.select(
     col("doi"),
     col("title"),
@@ -47,7 +47,7 @@ df_out = df_norm.select(
     col("category")
 )
 
-# 6) Escribir en MongoDB
+#escribir en MongoDB
 df_out.write \
     .format("com.mongodb.spark.sql.DefaultSource") \
     .mode("append") \
@@ -58,7 +58,7 @@ df_out.write \
 spark.stop()
 print("Spark Job completado con éxito.")
 
-# Mover los archivos procesados a la carpeta de procesados
+#mover los archivos procesados a la carpeta de procesados
 processed_folder = "./procesados"
 os.makedirs(processed_folder, exist_ok=True)
 

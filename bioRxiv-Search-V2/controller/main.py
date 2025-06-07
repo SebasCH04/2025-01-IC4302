@@ -16,19 +16,19 @@ def connect_rabbit():
     channel.queue_declare(queue="job-splits", durable=True)
     return connection, channel
 
-# Conexión a Mongo
+#conexion a Mongo
 mongo_uri = os.getenv("MONGO_URI")
 client    = MongoClient(mongo_uri)
 db        = client.get_default_database()
 jobs_col  = db.jobs
 
-# Conexión inicial a RabbitMQ
+#conexion inicial a RabbitMQ
 conn, channel = connect_rabbit()
 
 print("Controller iniciado. Esperando jobs...")
 
 while True:
-    # Toma un job no procesado
+    #toma un job no procesado
     job = jobs_col.find_one_and_update(
         {"status": {"$exists": False}},
         {"$set": {"status": "processing"}}
@@ -44,7 +44,7 @@ while True:
                 properties=pika.BasicProperties(delivery_mode=2)
             )
             print("Publicado mensaje:", message)
-            # Marca como hecho
+            #marca como hecho
             jobs_col.update_one({"_id": job["_id"]}, {"$set": {"status": "done"}})
         except StreamLostError:
             print("Conexión con RabbitMQ perdida, reintentando en 5s...")
@@ -54,7 +54,7 @@ while True:
                 pass
             time.sleep(5)
             conn, channel = connect_rabbit()
-            # Reintentar publicación tras reconectar
+            #reintentar publicacion tras reconectar
             channel.basic_publish(
                 exchange="",
                 routing_key="job-splits",

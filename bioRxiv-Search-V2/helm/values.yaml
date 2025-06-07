@@ -4,7 +4,7 @@ rabbitmq:
     username: guest
     password: guest
   persistence:
-    enabled: false #desactiva persistencia si solo es para desarrollo
+    enabled: false
 
 mongodb:
   enabled: true
@@ -16,7 +16,7 @@ mongodb:
     database: admin
   primary:
     persistence:
-      enabled: false #idem, para desarrollo
+      enabled: false
 
 secrets:
   mongoUri: "mongodb://root:rootPass123@biorxiv-search-v2-mongodb.default.svc.cluster.local:27017/projectDB?authSource=admin"
