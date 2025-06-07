@@ -24,3 +24,15 @@ export async function searchDocuments(query) {
   }
   return response.json();
 }
+
+export async function register(email, password, displayName) {
+  const response = await fetch("https://2025-01-ic4302.vercel.app/api/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password, displayName }),
+  });
+  if (!response.ok) {
+    throw new Error("Error en el registro.");
+  }
+  return response.json();
+}
