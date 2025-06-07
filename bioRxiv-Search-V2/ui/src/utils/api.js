@@ -16,8 +16,7 @@ export async function searchDocuments(query) {
   const response = await fetch(`https://2025-01-ic4302.vercel.app/api/search?query=${encodeURIComponent(query)}`, {
     headers: {
       "Content-Type": "application/json",
-      // Se añade el token en Authorization si está disponible
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`, // Incluye el token si es necesario
     },
   });
   if (!response.ok) {

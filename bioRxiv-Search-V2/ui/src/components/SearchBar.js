@@ -4,27 +4,25 @@ import { searchDocuments } from "../utils/api";
 function SearchBar({ setResults }) {
   const [query, setQuery] = useState("");
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
+  const handleSearch = async () => {
     try {
-      const data = await searchDocuments(query);
-      setResults(data.results);
+      const data = await searchDocuments(query); // Llama al backend con el término de búsqueda
+      setResults(data.results); // Actualiza los resultados en el estado del componente padre
     } catch (error) {
-      console.error("Error en búsqueda:", error);
+      console.error("Error en la búsqueda:", error);
     }
   };
 
   return (
-    <form onSubmit={handleSearch}>
+    <div>
       <input
         type="text"
-        placeholder="Buscar..."
+        placeholder="Buscar términos..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        required
       />
-      <button type="submit">Buscar</button>
-    </form>
+      <button onClick={handleSearch}>Buscar</button>
+    </div>
   );
 }
 
