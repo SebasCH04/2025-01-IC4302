@@ -39,6 +39,9 @@ Este documento describe la arquitectura, los componentes, la instalación, el de
 2. [Estructura del Proyecto](#estructura-del-proyecto)
 3. [Despliegue](#despliegue)
 4. [Pruebas](#pruebas)
+5. [Recomendaciones](#recomendaciones)
+6. [Conclusiones](#conclusiones)
+7. [Referencias]()
 
 ---
 
@@ -147,3 +150,8 @@ biorxiv-search-v2/
 - Spark permitió procesar y normalizar grandes volúmenes de datos de manera eficiente con CronJobs.
 - La UI React/Vite/Tailwind ofreció una experiencia de usuario fluida y adaptable a dispositivos móviles.
 - Las recomendaciones futuras apuntan a mejorar la observabilidad, la seguridad y la automatización total del ciclo de vida.
+
+## Referencias
+
+- [Kubernetes](https://kubernetes.io/docs/)
+- [Helm](https://helm.sh/docs/)
