@@ -63,6 +63,7 @@ router.get("/search", validateToken, async (req, res) => {
 
     const searchStage = {
       $search: {
+        index: "bioproject_search", // Asegúrate de que este índice exista
         compound: {
           must: mustClauses,
         },
