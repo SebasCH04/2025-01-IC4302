@@ -5,7 +5,7 @@ import ResultsList from "./ResultsList";
 
 function SearchPage() {
   const { user } = useContext(UserContext);
-  const [results, setResults] = useState([]); // inicializamos como arreglo vacío
+  const [results, setResults] = useState([]);
 
   if (!user) {
     return <p>Acceso denegado. Por favor, inicia sesión.</p>;
@@ -15,7 +15,7 @@ function SearchPage() {
     <div>
       <h2>Bienvenido, {user.displayName || user.email}.</h2>
       <SearchBar setResults={setResults} />
-      <ResultsList results={results} />  {/* Siempre le pasamos un arreglo */}
+      <ResultsList results={results} />  {/*siempre le pasamos un arreglo*/}
     </div>
   );
 }

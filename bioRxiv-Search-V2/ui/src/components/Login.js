@@ -21,7 +21,7 @@ function Login() {
       navigate("/search");
     } catch (error) {
       console.error("Error en el login:", error);
-      setErrorMsg("Credenciales inválidas o error en el login.");
+      setErrorMsg("Credenciales inválidas, inténtelo de nuevo.");
     }
   };
 

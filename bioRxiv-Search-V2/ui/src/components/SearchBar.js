@@ -6,8 +6,8 @@ function SearchBar({ setResults }) {
 
   const handleSearch = async () => {
     try {
-      const data = await searchDocuments(query); // Llama al backend con el término de búsqueda
-      setResults(data.results); // Actualiza los resultados en el estado del componente padre
+      const data = await searchDocuments(query);
+      setResults(data.results);
     } catch (error) {
       console.error("Error en la búsqueda:", error);
     }

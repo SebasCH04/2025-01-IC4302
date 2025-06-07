@@ -7,10 +7,10 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Elimina el token y limpia el contexto del usuario
+    //elimina el token y limpia el contexto del usuario
     localStorage.removeItem("token");
     setUser(null);
-    // Navega al login
+    //navega al login
     navigate("/");
   };
 

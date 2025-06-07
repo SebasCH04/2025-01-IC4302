@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   accessModes:
-    - ReadWriteMany      # importante: ambos Pods (Crawler y Spacy) pueden leer/escribir
+    - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi       # ajusta según lo que necesites
+      storage: 1Gi
